@@ -1,6 +1,6 @@
-=====================================================================
- uparse - an incremental parser for discontinuous structures
-=====================================================================
+=============================================================
+ uparse - a shift-reduce parser for discontinuous structures
+=============================================================
 
 .. image:: http://www.wolfgang-maier.net/fserv/misc/hhu-small.png
    :align: right
