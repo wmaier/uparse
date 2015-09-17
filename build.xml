@@ -1,0 +1,211 @@
+<project xmlns:ivy="antlib:org.apache.ivy.ant" name="uparse" default="main" basedir=".">
+
+  <antversion property="antversion" atleast="1.8"/>
+  
+  <description>
+    uparse build file
+  </description>
+
+  <property name="javac" value="/usr/bin/javac"/>
+
+  <property name="ivy.version" value="2.4.0" />
+  <property name="ivy.home" value="${user.home}/.ant" />
+  <property name="ivy.jar.dir" value="${ivy.home}/lib" />
+
+  <property name="uparse" location="${basedir}"/>
+  <property name="uparse.src" location="${uparse}/src"/>
+  <property name="uparse.build" location="${uparse}/bin"/>
+  <property name="uparse.dist" location="${uparse}/dist"/>
+  <property name="uparse.dist.lib" location="${uparse}/dist/lib"/>
+  <property name="uparse.lib" location="${uparse}/lib"/>
+  <property name="uparse.version.num" value="0.1"/>
+  <property name="uparse.main-class" value="de.hhu.phil.uparse.ui.Uparse"/>
+
+  <property name="autojar.version" value="2.0.1" />
+  <property name="autojar.tasks" value="${uparse.lib}/autojar-tasks.txt" />
+
+
+  <!-- ivy stuff *********************************************** -->
+  
+  <target name="download-ivy">
+    <mkdir dir="${ivy.jar.dir}"/>
+    <get src="https://repo1.maven.org/maven2/org/apache/ivy/ivy/${ivy.version}/ivy-${ivy.version}.jar"
+	 dest="${ivy.jar.dir}/ivy.jar" usetimestamp="true"/>
+  </target>
+  
+  <target name="init-ivy" depends="download-ivy">
+    <path id="ivy.lib.path">
+      <fileset dir="${ivy.jar.dir}" includes="*.jar"/>
+    </path>
+    <taskdef resource="org/apache/ivy/ant/antlib.xml"
+	     uri="antlib:org.apache.ivy.ant" classpathref="ivy.lib.path"/>
+  </target>
+  
+  <target name="run-ivy" depends="init-ivy" description="retrieve dependencies">
+    <ivy:retrieve type="jar"/>
+  </target>
+  
+  <!-- autojar stuff *********************************************** -->
+
+  <!-- note that autojar is used to extract the necessary classes from fastutil
+       and possibly other libraries in the future, in order to make the resulting
+       uparse.jar as small as possible -->
+
+  <target name="check-autojar-exists" unless="autojar.exists">
+    <available property="autojar.exists" file="${ivy.jar.dir}/autojar.jar"/>
+  </target>
+
+  <target name="download-autojar" depends="check-autojar-exists" unless="autojar.exists">
+    <get dest="${ivy.jar.dir}/autojar-${autojar.version}.zip"
+	 src="http://iweb.dl.sourceforge.net/project/autojar/autojar/2.0.1/autojar-${autojar.version}.zip"
+	 usetimestamp="true"/>
+    <unzip src="${ivy.jar.dir}/autojar-${autojar.version}.zip"
+	   dest="${ivy.jar.dir}">
+      <patternset>
+	<include name="**/autojar.jar"/>
+      </patternset>
+    </unzip>
+    <move file="${ivy.jar.dir}/autojar-${autojar.version}/autojar.jar" todir="${ivy.jar.dir}"/>
+    <delete dir="${ivy.jar.dir}/autojar-${autojar.version}/"/>
+  </target>
+
+  <target name="init-autojar" depends="download-autojar"/>
+
+  <target name="run-autojar" depends="init-autojar">
+    <script language="javascript"> <![CDATA[
+	var File = java.io.File;
+	var FileReader = java.io.FileReader;
+	var BufferedReader = java.io.BufferedReader;
+	var file = new File(project.getProperty("autojar.tasks"));
+	var reader = new BufferedReader(new FileReader(file));
+	var contents = [];
+	var tasks = []
+	var task = []
+	while ((line = reader.readLine()) != null) {
+	    line = line.trim();
+	    // allow comment syntax
+	    if (line.indexOf("#") === 0) {
+		continue;
+	    }
+	    if (line.length == 0) {
+		if (task.length > 0) {
+		    tasks.push(task);
+		    task = []
+		}
+	    } else {
+		task.push(line);
+	    }
+	}
+	if (task.length > 0) {
+	    tasks.push(task);
+	}
+	echo = project.createTask("echo");
+	for (i = 0; i < tasks.length; ++i) {
+	    fn = project.getProperty("uparse.lib") + "/" + tasks[i][0];
+	    smallAvailProp = "smalllib. " + tasks[i][0] + ".available";
+	    largeAvailProp = "largelib. " + tasks[i][0] + ".available";
+	    availableSmall = project.createTask("available");
+	    availableSmall.setFile(new File(fn + "-small.jar"));
+	    availableSmall.setProperty(smallAvailProp);
+	    availableSmall.execute();
+	    availableLarge = project.createTask("available");
+	    availableLarge.setFile(new File(fn + ".jar"));
+	    availableLarge.setProperty(largeAvailProp);
+	    availableLarge.execute();
+	    if (!project.getProperty(smallAvailProp)) {
+		javatask = project.createTask("java");
+		javatask.setJar(new File(project.getProperty("ivy.jar.dir"), "/autojar.jar"));
+		javatask.setFork(true);
+		javatask.setFailonerror(true);
+		arg = javatask.createArg();
+		arg.setValue("-o" + fn + "-small.jar");
+		arg = javatask.createArg();
+		arg.setValue("-c" + fn + ".jar");
+		for (j = 1; j < tasks[i].length; ++j) {
+		    arg = javatask.createArg();
+		    arg.setValue(tasks[i][j]);
+		}
+		echo.setMessage("executing autojar task " + i);
+		echo.execute();
+		javatask.execute();
+	    }
+	    if (project.getProperty(largeAvailProp)) {
+		del = project.createTask("delete");
+		del.setFile(new File(fn + ".jar"));
+		del.execute();
+	    }
+	}
+        ]]></script>
+  </target>
+
+  
+  <!-- uparse stuff *********************************************** -->
+  
+  <target name="init" depends="run-ivy,run-autojar">
+    <tstamp/>
+    <mkdir dir="${uparse.build}"/>
+    <mkdir dir="${uparse.dist}"/>
+    <mkdir dir="${uparse.dist.lib}" />
+  </target>
+
+  <path id="libpath">
+    <fileset dir="${uparse.lib}/">
+      <include name="*.jar" />
+    </fileset>
+  </path>
+
+  <target name="clean" description="clean up">
+    <delete dir="${uparse.build}" />
+    <delete dir="${uparse.dist}" />
+  </target>
+
+  <target name="compile" depends="init" description="compile parser">
+    <javac srcdir="${uparse.src}" destdir="${uparse.build}" 
+	   includeantruntime="false" debug="true" 
+	   debuglevel="lines,vars,source" executable="${javac}"
+	   fork="true" classpathref="libpath">
+      <compilerarg value="-Xlint"/>
+      <compilerarg line="-encoding UTF-8"/>
+    </javac>
+    <copy todir="${uparse.build}">
+      <fileset dir="${uparse.src}" includes="**/*.headrules **/*.xsl*"/>
+    </copy>
+  </target>
+
+  <target name="dep">
+    <mkdir dir="${uparse.dist.lib}" />
+    <jar jarfile="${uparse.dist.lib}/dependencies.jar">
+      <zipgroupfileset dir="${uparse.lib}">
+	<include name="**/*.jar" />
+      </zipgroupfileset>
+    </jar>
+  </target>
+
+  <target name="pack" depends="compile,dep" description="pack jar file">
+    <tstamp>
+      <format property="today" pattern="MMddyy-hhmmss" locale="en,US"/>
+    </tstamp>
+    <delete> 
+      <fileset dir="${uparse}" includes="**/*~" defaultexcludes="no"/>
+      <fileset dir="${uparse}" includes="*.jar" defaultexcludes="no"/>
+    </delete>
+    <manifest file="${uparse.dist}/uparse-manifest">
+      <attribute name="Built-By" value="${user.name}"/>
+      <attribute name="Main-Class" value="${uparse.main-class}" />
+       <attribute name="Implementation-Version" value="${uparse.version.num}-${today}"/>         
+      <attribute name="Built-Date" value="${today}"/>   
+    </manifest>
+    <jar destfile="${uparse.dist}/uparse-${uparse.version.num}-${today}.jar"
+	 basedir="${uparse.build}"
+	 includes="**/*.class **/*.headrules"
+	 manifest="${uparse.dist}/uparse-manifest">
+      <zipfileset src="${uparse.dist.lib}/dependencies.jar"
+		  excludes="META-INF/*.SF" />
+     </jar>
+     <copy file="${uparse.dist}/uparse-${uparse.version.num}-${today}.jar"
+	   tofile="${uparse}/uparse.jar"/>
+  </target>
+
+  <target name="main" depends="pack"/>
+  
+</project>

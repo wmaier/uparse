@@ -1,0 +1,18 @@
+# An ant build will run autojar. The first line of each block
+# contains the library name, and the remaining lines the necessary
+# classes. Autojar will build a small jar containing just these
+# given classes and their dependencies.
+# 
+# At the moment, this is just used to strip down fastutils.
+#
+# Wolfgang Maier <maierw@hhu.de>
+#
+fastutil-7.0.7
+it/unimi/dsi/fastutil/ints/Int2ObjectArrayMap.class
+it/unimi/dsi/fastutil/ints/Int2ObjectMap.class
+it/unimi/dsi/fastutil/objects/Object2IntArrayMap.class
+it/unimi/dsi/fastutil/objects/Object2IntMap.class
+it/unimi/dsi/fastutil/objects/Object2IntOpenHashMap.class
+it/unimi/dsi/fastutil/objects/Object2ObjectMap.class
+it/unimi/dsi/fastutil/objects/Object2ObjectOpenHashMap.class
+it/unimi/dsi/fastutil/objects/ObjectArrayList.class
