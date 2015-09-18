@@ -20,10 +20,12 @@ package de.hhu.phil.uparse.treebank;
 
 public interface Constants {
 
-	public final static String DEFAULT_ROOT = "VROOT";
+	public static final String DEFAULT_ROOT = "VROOT";
 	
-	public static final Object EPSILON = "-NONE-";
+	public static final String EPSILON = "-NONE-";
 
 	public static final String UNKNOWN = "-UNK-";
+	
+	public static final String DEFAULT_FIELD = "_"; 
 	
 }
