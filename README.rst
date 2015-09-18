@@ -35,4 +35,4 @@ In order to reference this parser, please cite
 License
 =======
 
-The parser code is released under the GNU General Public Licence (GPL) 3.0 or higher. In the build process, *autojar* is used (see http://autojar.sourceforge.net ) (GPL 2). The parser uses the library *fastutil* (http://fastutil.di.unimi.it/ ) (Apache License 2.0). For the full licenses see http://www.gnu.org/licenses/gpl-2.0 , http://www.gnu.org/licenses/gpl-3.0 , and http://www.apache.org/licenses/LICENSE-2.0.html.
+The parser code is released under the GNU General Public Licence (GPL) 3.0 or higher. In the build process, *autojar* is used (see http://autojar.sourceforge.net ) (GPL 2). The parser uses the library *fastutil* (http://fastutil.di.unimi.it/ ) (Apache License 2.0) and contains code from *rparse* (https://github.com/wmaier/rparse) (GPL 2). For the full licenses see http://www.gnu.org/licenses/gpl-2.0 , http://www.gnu.org/licenses/gpl-3.0 , and http://www.apache.org/licenses/LICENSE-2.0.html.
