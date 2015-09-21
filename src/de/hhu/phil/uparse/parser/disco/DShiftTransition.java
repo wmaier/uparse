@@ -61,6 +61,9 @@ public class DShiftTransition extends DiscoTransition implements Serializable {
 		if (state.complete) {
 			return false;
 		}
+		if (this.dist >= state.todo.size()) {
+			return false;
+		}
 		if (state.stack.size() > 0 && state.transitions.size() > 0
 				&& state.stack.peek().getLabel().label.startsWith("@")
 				&& state.transitions.peek() instanceof BinaryTransition
