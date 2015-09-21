@@ -128,7 +128,7 @@ public class UparseOptions extends Options implements Serializable {
 
 	// transitions
 	
-	@Option(name = "-transitionifier", help = "how to get transitions (sswap, cswap*, topdown)")
+	@Option(name = "-transitionifier", help = "how to get transitions (sswap, cswap*, dshift, topdown)")
 	public String transitionifier = "cswap";
 	
 	@Option(name = "-noIdle", help = "no IDLE padding transition (default false) (Zhu et al. 2013)")

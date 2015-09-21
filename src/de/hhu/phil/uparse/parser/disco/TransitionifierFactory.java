@@ -33,6 +33,10 @@ public class TransitionifierFactory {
 			return new SingleSwapTransitionifier(opts);
 		}
 		
+		if ("dshift".equals(transitionifier)) {
+			return new DShiftTransitionifier(opts);
+		}
+		
 		// only for continuous trees
 		if ("topdown".equals(transitionifier)) {
 			return new TopDownTransitionifier(opts);
