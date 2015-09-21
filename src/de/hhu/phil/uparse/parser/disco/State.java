@@ -39,18 +39,27 @@ public class State implements Comparable<State> {
 	public List<Tree> sentence;
 	
 	public boolean complete;
-
+	
 	// since we do discontinuous parsing, a single pointer is not enough
 	public List<Integer> todo;
 	
+	public int lastShiftDist;
+
 	public State(LinkedList<Tree> stack, LinkedList<DiscoTransition> trans,
-			List<Tree> list, List<Integer> todo, double score, boolean complete) {
+			List<Tree> list, List<Integer> todo, double score, boolean complete,
+			int lastdshift) {
 		this.stack = stack;
 		this.transitions = trans;
 		this.sentence = list;
 		this.todo = todo;
 		this.score = score;
 		this.complete = complete;
+		this.lastShiftDist = lastdshift;
+	}
+
+	public State(LinkedList<Tree> stack, LinkedList<DiscoTransition> trans,
+			List<Tree> list, List<Integer> todo, double score, boolean complete) {
+		this(stack, trans, list, todo, score, complete, 0);
 	}
 
 	public String toString() {

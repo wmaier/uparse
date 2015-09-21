@@ -82,5 +82,18 @@ public class Features {
 
 	public static String[] separatorBi = { "s0_c#s1_c_p", "s0_c#s1_c_q" };
 	
+	/*
+	 * dshift support ******************************
+	 */
+	
+	// partly implemented in featurizer without constants here
+	// "dx" is last shift distance integer, "d[int]" is queue element at
+	// a given distance
+	public static final String[] dshift = {
+			"s0_c#d0_t", "s0_c#d0_w", "s0_c#d1_t", "s0_c#d1_w", 
+			"s1_c#d0_t", "s1_c#d0_w", "s1_c#d1_t", "s1_c#d1_w"
+	};
+
+	
 	
 }

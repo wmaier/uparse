@@ -112,6 +112,15 @@ public class Featurizer {
 			}
 		} else if (sp[0].startsWith("q")) {
 			p = topOfQueue[pos];
+		} else if (sp[0].startsWith("d")) {
+			if (sp[0].length() != 2 || !Character.isDigit(sp[0].charAt(1))) {
+				throw new ParserException("wrong dist shift feature spec: " + sp[0]);
+			}
+			if (state.lastShiftDist + Integer.valueOf(sp[0].charAt(1)) < state.todo.size()) {
+				p = state.sentence.get(state.todo.get(state.lastShiftDist + Integer.valueOf(sp[0].charAt(1))));
+			} else {
+				p = null;
+			}
 		}
 		StringBuffer feature = new StringBuffer();
 		for (int i = 1; i < sp.length; ++i) {
@@ -223,7 +232,7 @@ public class Featurizer {
 							feature.append(counter);
 						}
 					}
-				}
+				} 
 			} catch (TreebankException e) {
 				throw new ParserException(e);
 			}
@@ -269,6 +278,14 @@ public class Featurizer {
 				Tree pt = state.sentence.get(state.todo.get(i));
 				result.add("q" + String.valueOf(i) + "_w_t-" + pt.children().get(0).getLabel().label
 						+ "_" + pt.getLabel().label);
+			}
+		}
+		if (opts.features.contains("dshift")) {
+			for (String template : Features.dshift) {
+				String feature = featureFromUni(template, state, topOfStack, topOfQueue, "");
+				if (feature != null) {
+					result.add(template + "-" + feature);
+				}
 			}
 		}
 		if (opts.features.contains("extended")) {
