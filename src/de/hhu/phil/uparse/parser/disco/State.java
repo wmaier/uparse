@@ -57,10 +57,10 @@ public class State implements Comparable<State> {
 		this.lastShiftDist = lastdshift;
 	}
 
-	public State(LinkedList<Tree> stack, LinkedList<DiscoTransition> trans,
+	/*public State(LinkedList<Tree> stack, LinkedList<DiscoTransition> trans,
 			List<Tree> list, List<Integer> todo, double score, boolean complete) {
 		this(stack, trans, list, todo, score, complete, 0);
-	}
+	}*/
 
 	public String toString() {
 		return "[" + stack.toString() + ", " + transitions.toString() + ", " + todo + ", " + complete + "]";

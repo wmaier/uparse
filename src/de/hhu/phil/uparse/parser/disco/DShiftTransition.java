@@ -51,7 +51,7 @@ public class DShiftTransition extends DiscoTransition implements Serializable {
 		trans.push(this);
 		List<Integer> newtodo = new LinkedList<>(state.todo);
 		newtodo.remove(dist);
-		return new State(stack, trans, state.sentence, newtodo, state.score + scoreDelta, false);
+		return new State(stack, trans, state.sentence, newtodo, state.score + scoreDelta, false, dist);
 	}
 
 	public boolean isLegal(State state, Grammar g) {

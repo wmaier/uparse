@@ -37,7 +37,8 @@ public class CompoundSwapTransition extends DiscoTransition implements Serializa
 		}
 		LinkedList<DiscoTransition> trans = new LinkedList<>(state.transitions);
 		trans.push(this);
-		return new State(stack, trans, state.sentence, todo, state.score + scoreDelta, false);
+		return new State(stack, trans, state.sentence, todo, 
+				state.score + scoreDelta, false, state.lastShiftDist);
 	}
 
 	public boolean isLegal(State state, Grammar g) {

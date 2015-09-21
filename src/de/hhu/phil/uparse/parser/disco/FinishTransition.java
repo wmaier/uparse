@@ -30,7 +30,8 @@ public class FinishTransition extends DiscoTransition implements Serializable {
 	public State extend(State state, double scoreDelta) {
 		LinkedList<DiscoTransition> newTransitions = new LinkedList<>(state.transitions);  
 	    newTransitions.push(this);
-		return new State(state.stack, newTransitions, state.sentence, state.todo, state.score + scoreDelta, true);    
+		return new State(state.stack, newTransitions, state.sentence, state.todo, 
+				state.score + scoreDelta, true, state.lastShiftDist);    
 	}
 	
 	public boolean isLegal(State state, Grammar g) {

@@ -68,7 +68,8 @@ public class BinaryTransition extends DiscoTransition implements Serializable  {
 	    LinkedList<DiscoTransition> trans = new LinkedList<DiscoTransition>(state.transitions);
 	    trans.push(this);
 	    
-	    return new State(stack, trans, state.sentence, new LinkedList<>(state.todo), state.score + scoreDelta, false);    
+	    return new State(stack, trans, state.sentence, new LinkedList<>(state.todo), 
+	    		state.score + scoreDelta, false, state.lastShiftDist);    
 	}
 	
 	public boolean isLegal(State state, Grammar g) {
