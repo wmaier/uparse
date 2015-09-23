@@ -2,6 +2,9 @@
  uparse - a shift-reduce parser for discontinuous structures
 =============================================================
 
+.. image:: https://travis-ci.org/wmaier/uparse.svg?branch=master
+	       :target: https://travis-ci.org/wmaier/uparse
+
 .. image:: http://www.wolfgang-maier.net/fserv/misc/hhu-small.png
    :align: right
    :alt: HHU Logo
