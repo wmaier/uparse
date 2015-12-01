@@ -239,9 +239,7 @@ public class Tree {
 		List<Tree> preTerminals = preTerminals();
 		int pos = preTerminals.get(0).nodeNumber();
 		for (Tree pt : preTerminals.subList(1, preTerminals.size())) {
-			if (pt.nodeNumber > pos + 1) {
-				sum++;
-			}
+			sum += pt.nodeNumber - pos - 1;
 			pos++;
 		}
 		return sum;
