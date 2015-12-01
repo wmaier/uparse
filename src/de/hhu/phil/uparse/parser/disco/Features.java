@@ -63,7 +63,7 @@ public class Features {
 
 	public static String[] disco = { 
 		"s0_x_w_c", "s1_x_w_c", "s2_x_w_c", "s3_x_w_c", 
-		"s0_x_t_c", "s1_x_w_c", "s2_x_t_c", "s3_x_w_c", 
+		"s0_x_t_c", "s1_x_t_c", "s2_x_t_c", "s3_x_t_c",
 		"s0_x_y", "s1_x_y", "s2_x_y", "s3_x_y"
 	};
 
