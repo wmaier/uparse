@@ -37,6 +37,10 @@ public class TransitionifierFactory {
 			return new DShiftTransitionifier(opts);
 		}
 		
+		if ("dshiftrev".equals(transitionifier)) {
+			return new DShiftRevTransitionifier(opts);
+		}
+		
 		// only for continuous trees
 		if ("topdown".equals(transitionifier)) {
 			return new TopDownTransitionifier(opts);
