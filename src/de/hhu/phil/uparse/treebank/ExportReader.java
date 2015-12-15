@@ -23,6 +23,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 
 import de.hhu.phil.uparse.ui.UparseOptions;
@@ -59,7 +60,7 @@ public class ExportReader implements TreeReader<Tree> {
 					isInSentence = false;
 					Tree tree;
 					try {
-						tree = parseExportSentence(sentence);
+						tree = parseExportSentence(sentence, opts);
 					} catch (TreebankException e) {
 						throw new IOException(e);
 					}
@@ -79,7 +80,7 @@ public class ExportReader implements TreeReader<Tree> {
 		return treebank;
 	}
 
-	private Tree parseExportSentence(ArrayList<String> sentence)
+	public static Tree parseExportSentence(ArrayList<String> sentence, UparseOptions opts)
 			throws TreebankException {
 		HashMap<Integer, Tree> nodes = new HashMap<>();
 		HashMap<Integer, ArrayList<Integer>> idsToChildIds = new HashMap<Integer, ArrayList<Integer>>();

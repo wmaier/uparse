@@ -131,6 +131,9 @@ public class UparseOptions extends Options implements Serializable {
 	@Option(name = "-transitionifier", help = "how to get transitions (sswap, cswap*, dshift, topdown)")
 	public String transitionifier = "cswap";
 	
+	@Option(name = "-continuifierMode", help = "continuifier mode")
+	public String continuifierMode = "left";
+
 	@Option(name = "-noIdle", help = "no IDLE padding transition (default false) (Zhu et al. 2013)")
 	public boolean noidle = false;
 	

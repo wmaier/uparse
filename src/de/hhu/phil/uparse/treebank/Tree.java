@@ -44,7 +44,7 @@ public class Tree {
 	private int nodeNumber;
 	
 	private NodeLabel data;
-
+	
 	private Tree lexicalHead;
 
 	private boolean isHead;

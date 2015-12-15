@@ -22,7 +22,10 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import de.hhu.phil.uparse.parser.ParserException;
+import de.hhu.phil.uparse.treebank.Constants;
 import de.hhu.phil.uparse.treebank.Tree;
+import de.hhu.phil.uparse.treebank.TreeContinuifier;
 import de.hhu.phil.uparse.treebank.TreebankException;
 import de.hhu.phil.uparse.treebank.bin.HeadSide;
 import de.hhu.phil.uparse.ui.UparseOptions;
@@ -34,55 +37,76 @@ import de.hhu.phil.uparse.ui.UparseOptions;
  * @author wmaier
  *
  */
-public class DShiftRevTransitionifier extends Transitionifier<Tree> {
+public class DShiftRevTransitionifier extends SwapTransitionifier {
 
+	private TreeContinuifier tc;
+	
+	public int len;
+	
 	public DShiftRevTransitionifier(UparseOptions opts) {
 		super(opts);
-	}
-	
-	private void getTransitionsHelper(Tree tree, List<DiscoTransition> trans, int dist) throws TreebankException {
-		if (tree.isPreTerminal()) {
-			trans.add(new DShiftTransition(dist));
-		} else {
-			if (tree.isRoot()) {
-				trans.add(new IdleTransition());
-				trans.add(new FinishTransition());
-			}
-			List<Tree> children = tree.children();
-			if (children.size() == 1) {
-				Tree uChild = children.get(0);
-				trans.add(new UnaryTransition(tree.getLabel().label));
-				getTransitions(uChild, trans);
-			} else if (children.size() == 2) {
-				HeadSide side = null;
-				Tree leftChild = children.get(0);
-				Tree rightChild = children.get(1);
-				if (leftChild.isHead() && !rightChild.isHead()) {
-					side = HeadSide.LEFT;
-				} else if (!leftChild.isHead() && rightChild.isHead()) {
-					side = HeadSide.RIGHT;
-				} else {
-					throw new TreebankException("no head marked or two heads marked");
-				}
-				trans.add(new BinaryTransition(tree.getLabel().label, side));
-				getTransitionsHelper(rightChild, trans, 0);
-				getTransitionsHelper(leftChild, trans, 0);
-			} else {
-				throw new TreebankException("more than 2 or no children during transitionification");
-			}
-		}
-	}
-	
-	private void getTransitions(Tree tree, List<DiscoTransition> trans) throws TreebankException {
-		getTransitionsHelper(tree, trans, 0);		
+		tc = new TreeContinuifier(opts.continuifierMode);
 	}
 
-	@Override
 	public void process(Tree tree) throws TreebankException {
-		List<DiscoTransition> trans = new ArrayList<DiscoTransition>();
-		getTransitions(tree, trans);
-		Collections.reverse(trans);
-		transitions.add(trans);
+		tc.process(tree);
+		len = tree.preTerminals().size();
+		List<Tree> terms = tc.reordered;
+		List<DiscoTransition> trans = new ArrayList<>();
+		List<Tree> stack = new ArrayList<>();
+		try {
+			getTransitions(terms, trans, stack);
+		} catch (ParserException e) {
+			throw new TreebankException(e);
+		}
+		transitions.add(Collections.unmodifiableList(trans));
+	}
+	
+	public void getTransitions(List<Tree> terms, List<DiscoTransition> result, List<Tree> stack) throws ParserException {
+		while (terms.size() > 0 || stack.size() > 0) {
+			if (stack.size() == 1 && stack.get(0).getLabel().label.equals(Constants.DEFAULT_ROOT)) {
+				result.add(new FinishTransition());
+				if (!opts.noidle)
+					result.add(new IdleTransition());
+				stack.remove(0);
+			}
+			while (binaryPossible(stack) || unaryPossible(stack)) {
+				while (binaryPossible(stack)) {
+					HeadSide side = null;
+					Tree rightChild = stack.remove(stack.size() - 1);
+					Tree leftChild = stack.remove(stack.size() - 1);
+					if (leftChild.isHead() && !rightChild.isHead()) {
+						side = HeadSide.LEFT;
+					} else if (!leftChild.isHead() && rightChild.isHead()) {
+						side = HeadSide.RIGHT;
+					} else {
+						throw new ParserException("no head marked or two heads marked");
+					}
+					Tree parent = leftChild.parent();
+					stack.add(parent);
+					result.add(new BinaryTransition(parent.getLabel().label, side));
+				}
+				while (unaryPossible(stack)) {
+					Tree last = stack.get(stack.size() - 1);
+					last = last.parent();
+					stack.remove(stack.get(stack.size() - 1));
+					stack.add(last);
+					result.add(new UnaryTransition(last.getLabel().label));
+				}
+			}
+			if (terms.size() > 0) {
+				int tid = terms.get(0).nodeNumber();
+				int leftCount = 0;
+				for (Tree pt : terms) {
+					if (pt.nodeNumber() < tid) {
+						leftCount++;
+					}
+				}
+				result.add(new DShiftTransition(leftCount));
+				stack.add(terms.get(0));
+				terms.remove(0);
+			}
+		}
 	}
 
 }

@@ -97,7 +97,7 @@ public class DShiftTransition extends DiscoTransition implements Serializable {
 	}
 
 	public String toString() {
-		return "SHIFT";
+		return "DSHIFT-" + dist;
 	}
 	
 	private static final long serialVersionUID = 8846368737894172872L;
