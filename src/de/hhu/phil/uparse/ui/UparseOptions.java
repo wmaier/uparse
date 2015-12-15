@@ -144,7 +144,7 @@ public class UparseOptions extends Options implements Serializable {
 	public boolean randomize = false;
 
 	@Option(name = "-iterations", help = "maximum training iterations (20*)")
-	public int iterations = 20;
+	public int iterations = 15;
 
 	@Option(name = "-beamSize", help = "beam size in the parser (4*)")
 	public int beamSize = 4;
