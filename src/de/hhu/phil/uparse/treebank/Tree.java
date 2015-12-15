@@ -324,5 +324,14 @@ public class Tree {
 		}
 		return result;
 	}
+
+	public boolean isBinary() {
+		for (Tree t : this.preorder()) {
+			if (t.children().size() > 2) {
+				return false;
+			}
+		}
+		return true;
+	}
 	
 }
