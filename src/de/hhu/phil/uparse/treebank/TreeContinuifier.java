@@ -31,8 +31,11 @@ public class TreeContinuifier implements TreeProcessor<Tree> {
 		if (children.size() > 2) {
 			throw new TreebankException("tree must be binarized");
 		}
-		if (children.size() == 1 || tree.isPreTerminal()) {
+		if (tree.isPreTerminal()) {
 			return tree.preTerminals();
+		}
+		if (children.size() == 1) {
+			result = reorder(children.get(0));
 		}
 		if (children.size() == 2) {
 			Tree left = children.get(0);

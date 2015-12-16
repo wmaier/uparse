@@ -49,6 +49,7 @@ public class DShiftRevTransitionifier extends SwapTransitionifier {
 	}
 
 	public void process(Tree tree) throws TreebankException {
+		System.err.println(tree.getId());
 		tc.process(tree);
 		len = tree.preTerminals().size();
 		List<Tree> terms = tc.reordered;
