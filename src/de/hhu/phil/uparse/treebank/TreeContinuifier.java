@@ -101,9 +101,9 @@ public class TreeContinuifier implements TreeProcessor<Tree> {
 	@Override
 	public void process(Tree tree) throws TreebankException {
 		reordered = reorder(tree);
-		List<Tree> terminals = tree.preTerminals();
-		Map<Integer,Integer> map = new HashMap<>();
 		if (dumpTree) {
+			List<Tree> terminals = tree.preTerminals();
+			Map<Integer,Integer> map = new HashMap<>();
 			for (int i = 0; i < reordered.size(); ++i) {
 				for (int j = 0; j < reordered.size(); ++j) {
 					if (terminals.get(i) == reordered.get(j)) {
@@ -112,9 +112,9 @@ public class TreeContinuifier implements TreeProcessor<Tree> {
 					}
 				}
 			}
-		}
-		for (Tree terminal : terminals) {
-			terminal.setNodeNumber(map.get(terminal.nodeNumber()));
+			for (Tree terminal : terminals) {
+				terminal.setNodeNumber(map.get(terminal.nodeNumber()));
+			}
 		}
 	}
 
