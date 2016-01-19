@@ -37,13 +37,13 @@ import de.hhu.phil.uparse.ui.UparseOptions;
  * @author wmaier
  *
  */
-public class DShiftRevTransitionifier extends SwapTransitionifier {
+public class DShiftCTransitionifier extends SwapTransitionifier {
 
 	private TreeContinuifier tc;
 	
 	public int len;
 	
-	public DShiftRevTransitionifier(UparseOptions opts) {
+	public DShiftCTransitionifier(UparseOptions opts) {
 		super(opts);
 		tc = new TreeContinuifier(opts.continuifierMode);
 	}
