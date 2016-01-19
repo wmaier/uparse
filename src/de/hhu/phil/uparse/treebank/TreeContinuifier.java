@@ -103,17 +103,19 @@ public class TreeContinuifier implements TreeProcessor<Tree> {
 		reordered = reorder(tree);
 		if (dumpTree) {
 			List<Tree> terminals = tree.preTerminals();
-			Map<Integer,Integer> map = new HashMap<>();
+			int[] map = new int[terminals.size()];
 			for (int i = 0; i < reordered.size(); ++i) {
 				for (int j = 0; j < reordered.size(); ++j) {
-					if (terminals.get(i).nodeNumber() == reordered.get(j).nodeNumber()) {
-						map.put(i, j);
+					int terminalNumber = terminals.get(i).nodeNumber();
+					int rTerminalNumber = reordered.get(j).nodeNumber();
+					if (terminalNumber == rTerminalNumber) {
+						map[i] = rTerminalNumber;
 						break;
 					}
 				}
 			}
-			for (Tree terminal : terminals) {
-				terminal.setNodeNumber(map.get(terminal.nodeNumber()));
+			for (int i = 0; i < terminals.size(); ++i) {
+				terminals.get(i).setNodeNumber(map[i]);
 			}
 		}
 	}
