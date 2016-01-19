@@ -45,11 +45,10 @@ public class DShiftCTransitionifier extends SwapTransitionifier {
 	
 	public DShiftCTransitionifier(UparseOptions opts) {
 		super(opts);
-		tc = new TreeContinuifier(opts.continuifierMode);
+		tc = new TreeContinuifier(opts.continuifierMode, opts.dumpTraining);
 	}
 
 	public void process(Tree tree) throws TreebankException {
-		System.err.println(tree.getId());
 		tc.process(tree);
 		len = tree.preTerminals().size();
 		List<Tree> terms = tc.reordered;

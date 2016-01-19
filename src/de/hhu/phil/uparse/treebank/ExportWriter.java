@@ -19,6 +19,7 @@
 package de.hhu.phil.uparse.treebank;
 
 import java.io.IOException;
+import java.io.PrintStream;
 import java.io.StringWriter;
 import java.io.Writer;
 import java.util.ArrayList;
@@ -149,6 +150,10 @@ public class ExportWriter implements TreeWriter<Tree> {
 	}
 
 	public static void printTree(Tree tree) {
+		printTree(tree, System.err);
+	}
+	
+	public static void printTree(Tree tree, PrintStream s) {
 		StringWriter w = new StringWriter();
 		ExportWriter ew = new ExportWriter();
 		try {
@@ -156,7 +161,7 @@ public class ExportWriter implements TreeWriter<Tree> {
 		} catch (IOException e) {
 			System.err.println("Could not write tree");
 		}
-		System.err.println(w.getBuffer().toString());
+		s.println(w.getBuffer().toString());
 	}
 
 	public static void printTreeWithSlash(Tree tree) {

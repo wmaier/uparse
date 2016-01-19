@@ -22,9 +22,11 @@ import java.io.BufferedInputStream;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.LinkedList;
@@ -95,6 +97,13 @@ public class DiscoParser {
 			System.err.print("marking heads, binarizing, extracting grammar and transitions... ");
 			trainTreebank.apply(trainingProcessors);
 			System.err.println("done.");
+			if (opts.dumpTraining) {
+				PrintStream ps = new PrintStream(new FileOutputStream("./training-dump"));
+				for (Tree t : trainTreebank) {
+					ExportWriter.printTree(t, ps);
+				}
+				System.exit(1);
+			}
 			System.err.print("numbering transitions... ");
 			for (List<DiscoTransition> transitionList : transitionifier.getTransitions()) {
 				ArrayList<DiscoTransition> myTransitionList = new ArrayList<>(transitionList);

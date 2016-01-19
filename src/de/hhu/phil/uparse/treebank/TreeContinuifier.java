@@ -2,6 +2,7 @@ package de.hhu.phil.uparse.treebank;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import de.hhu.phil.uparse.treebank.Tree.GapType;
 
@@ -16,13 +17,16 @@ public class TreeContinuifier implements TreeProcessor<Tree> {
 	
 	public List<Tree> reordered;
 	
-	public TreeContinuifier(String mode, HashMap<String,String> labels) {
+	public boolean dumpTree;
+	
+	public TreeContinuifier(String mode, HashMap<String,String> labels, boolean dumpTree) {
 		this.mode = mode;
 		this.labels = labels;
+		this.dumpTree = dumpTree;
 	}
 	
-	public TreeContinuifier(String mode) {
-		this(mode, null);
+	public TreeContinuifier(String mode, boolean dumpTree) {
+		this(mode, null, dumpTree);
 	}
 	
 	public List<Tree> reorder(Tree tree) throws TreebankException {
@@ -97,6 +101,21 @@ public class TreeContinuifier implements TreeProcessor<Tree> {
 	@Override
 	public void process(Tree tree) throws TreebankException {
 		reordered = reorder(tree);
+		List<Tree> terminals = tree.preTerminals();
+		Map<Integer,Integer> map = new HashMap<>();
+		if (dumpTree) {
+			for (int i = 0; i < reordered.size(); ++i) {
+				for (int j = 0; j < reordered.size(); ++j) {
+					if (terminals.get(i) == reordered.get(j)) {
+						map.put(i, j);
+						break;
+					}
+				}
+			}
+		}
+		for (Tree terminal : terminals) {
+			terminal.setNodeNumber(map.get(terminal.nodeNumber()));
+		}
 	}
 
 }

@@ -134,11 +134,13 @@ public class UparseOptions extends Options implements Serializable {
 	@Option(name = "-continuifierMode", help = "continuifier mode")
 	public String continuifierMode = "left";
 	
-	@Option(name = "-dumpContinuous", help = "dump binary treebank after application of continuifier")
-	public boolean dumpContinuous = false;
-
 	@Option(name = "-noIdle", help = "no IDLE padding transition (default false) (Zhu et al. 2013)")
 	public boolean noidle = false;
+	
+	// debug
+	
+	@Option(name = "-dumpTraining", help = "dump processed training set")
+	public boolean dumpTraining = false;
 	
 	// parser stuff
 
