@@ -98,10 +98,12 @@ public class DiscoParser {
 			trainTreebank.apply(trainingProcessors);
 			System.err.println("done.");
 			if (opts.dumpTraining) {
+				System.err.print("dumping training set... ");
 				PrintStream ps = new PrintStream(new FileOutputStream("./training-dump"));
 				for (Tree t : trainTreebank) {
 					ExportWriter.printTree(t, ps);
 				}
+				System.err.println("done. Exiting!");
 				System.exit(1);
 			}
 			System.err.print("numbering transitions... ");

@@ -106,7 +106,7 @@ public class TreeContinuifier implements TreeProcessor<Tree> {
 			Map<Integer,Integer> map = new HashMap<>();
 			for (int i = 0; i < reordered.size(); ++i) {
 				for (int j = 0; j < reordered.size(); ++j) {
-					if (terminals.get(i) == reordered.get(j)) {
+					if (terminals.get(i).nodeNumber() == reordered.get(j).nodeNumber()) {
 						map.put(i, j);
 						break;
 					}
