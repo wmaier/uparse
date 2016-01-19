@@ -2,13 +2,12 @@ package de.hhu.phil.uparse.treebank;
 
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import de.hhu.phil.uparse.treebank.Tree.GapType;
 
 public class TreeContinuifier implements TreeProcessor<Tree> {
 	
-	final public static int threshold = 0;
+	private int threshold = 0;
 	
 	// left, right, label, dist, random
 	public String mode;
@@ -19,14 +18,15 @@ public class TreeContinuifier implements TreeProcessor<Tree> {
 	
 	public boolean dumpTree;
 	
-	public TreeContinuifier(String mode, HashMap<String,String> labels, boolean dumpTree) {
+	public TreeContinuifier(String mode, HashMap<String,String> labels, boolean dumpTree, int threshold) {
 		this.mode = mode;
 		this.labels = labels;
 		this.dumpTree = dumpTree;
+		this.threshold = threshold;
 	}
 	
-	public TreeContinuifier(String mode, boolean dumpTree) {
-		this(mode, null, dumpTree);
+	public TreeContinuifier(String mode, boolean dumpTree, int threshold) {
+		this(mode, null, dumpTree, threshold);
 	}
 	
 	public List<Tree> reorder(Tree tree) throws TreebankException {

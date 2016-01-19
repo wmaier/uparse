@@ -134,6 +134,9 @@ public class UparseOptions extends Options implements Serializable {
 	@Option(name = "-continuifierMode", help = "continuifier mode")
 	public String continuifierMode = "left";
 	
+	@Option(name = "-continuifierDistanceThreshold", help = "threshold for continuifier 'dist' mode")
+	public int distanceThreshold = 0;
+	
 	@Option(name = "-noIdle", help = "no IDLE padding transition (default false) (Zhu et al. 2013)")
 	public boolean noidle = false;
 	
