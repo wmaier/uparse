@@ -61,6 +61,10 @@ public class EarlyUpdateTrainer extends Trainer<DiscoTransition> {
 				}
 			}
 			State goldToState = goldTransition.extend(goldFromState, 0.0);
+			if (bestToState == null) {
+				// got stuck, no further legal transitions found
+				break;
+			}
 			if (!goldToState.transitions.equals(bestToState.transitions)) {
 				float updateDelta = 1.0f;
 				if (goldTransition instanceof CompoundSwapTransition) {
