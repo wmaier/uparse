@@ -75,9 +75,11 @@ public class DiscoParser {
 		Treebank<Tree> trainTreebank = null;
 		Treebank<Tree> devTreebank = null;
 		weights = new Weights<DiscoTransition>(opts);
-		Transitionifier<Tree> transitionifier = TransitionifierFactory.getTransitionsifier(opts.transitionifier, opts);
-		TreeReader<Tree> treebankReader = TreeReaderFactory.getConstituencyTreebankReader(opts.treeFormat, opts);
+		Transitionifier<Tree> transitionifier;
+		TreeReader<Tree> treebankReader;
 		try {
+			transitionifier = TransitionifierFactory.getTransitionsifier(opts.transitionifier, opts);
+			treebankReader = TreeReaderFactory.getConstituencyTreebankReader(opts.treeFormat, opts);
 			System.err.println("preparing training data from " + opts.trainTreebank);
 			System.err.print("reading treebank... ");
 			List<TreebankProcessor<Tree>> trainingProcessors = new ArrayList<>();

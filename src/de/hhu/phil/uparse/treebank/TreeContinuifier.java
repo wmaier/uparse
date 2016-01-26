@@ -1,15 +1,16 @@
 package de.hhu.phil.uparse.treebank;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
 import de.hhu.phil.uparse.treebank.Tree.GapType;
 
 public class TreeContinuifier implements TreeProcessor<Tree> {
-	
+
 	private int threshold = 0;
 	
-	// left, right, label, dist, random
+	// left, right, rightd, label, dist, random
 	public String mode;
 	
 	public HashMap<String,String> labels;
@@ -18,15 +19,26 @@ public class TreeContinuifier implements TreeProcessor<Tree> {
 	
 	public boolean dumpTree;
 	
-	public TreeContinuifier(String mode, HashMap<String,String> labels, boolean dumpTree, int threshold) {
+	public TreeContinuifier(String mode, ArrayList<String> labelDirections, boolean dumpTree, int threshold) throws TreebankException {
 		this.mode = mode;
-		this.labels = labels;
+		labels = new HashMap<>();
+		for (String labelDirection : labelDirections) {
+			// is there a colon?
+			int ind = labelDirection.indexOf(":");
+			if (ind == -1) {
+				throw new TreebankException("cannot understand label/direction specification: " 
+						+ labelDirection);
+			}
+			String label = labelDirection.substring(0, ind);
+			String sdirection = labelDirection.substring(ind + 1);
+			if (!("left".equals(sdirection) || "right".equals(sdirection) || "rightd".equals(sdirection)
+					|| "random".equals(sdirection) || "dist".equals(sdirection))) {
+				throw new TreebankException("illegal direction spec: " + labelDirection);
+			}
+			labels.put(label, sdirection);
+		}
 		this.dumpTree = dumpTree;
 		this.threshold = threshold;
-	}
-	
-	public TreeContinuifier(String mode, boolean dumpTree, int threshold) {
-		this(mode, null, dumpTree, threshold);
 	}
 	
 	public List<Tree> reorder(Tree tree) throws TreebankException {
@@ -44,13 +56,21 @@ public class TreeContinuifier implements TreeProcessor<Tree> {
 		if (children.size() == 2) {
 			Tree left = children.get(0);
 			Tree right = children.get(1);
-			if ("left".equals(mode)) {
+			String theMode = mode;
+			if ("label".equals(theMode)) {
+				theMode = "left";
+				String label = tree.getLabel().label;
+				if (labels.containsKey(tree.getLabel().label)) {
+					theMode = labels.get(label);
+				}
+			}
+			if ("left".equals(theMode)) {
 				result = reorder(left);
 				result.addAll(reorder(right));
-			} else if ("right".equals(mode)) {
+			} else if ("right".equals(theMode)) {
 				result = reorder(right);
 				result.addAll(reorder(left));
-			} else if ("rightd".equals(mode)) {
+			} else if ("rightd".equals(theMode)) {
 				if (tree.gapType().equals(GapType.SOURCE)) {
 					result = reorder(right);
 					result.addAll(reorder(left));
@@ -58,20 +78,7 @@ public class TreeContinuifier implements TreeProcessor<Tree> {
 					result = reorder(left);
 					result.addAll(reorder(right));
 				}
-			} else if ("label".equals(mode)) {
-				String direction = "left";
-				String label = tree.getLabel().label;
-				if (labels.containsKey(tree.getLabel().label)) {
-					direction = labels.get(label);
-				}
-				if ("left".equals(direction)) {
-					result = reorder(left);
-					result.addAll(reorder(right));
-				} else if ("right".equals(direction)) {
-					result = reorder(right);
-					result.addAll(reorder(left));
-				}
-			} else if ("dist".equals(mode)) {
+			} else if ("dist".equals(theMode)) {
 				int leftGap = left.gapLengthSum();
 				int rightGap = right.gapLengthSum();
 				if (tree.gapType().equals(GapType.SOURCE) && (rightGap > threshold || leftGap > threshold)) {
@@ -81,7 +88,7 @@ public class TreeContinuifier implements TreeProcessor<Tree> {
 					result = reorder(left);
 					result.addAll(reorder(right));
 				}
-			} else if ("random".equals(mode)) {
+			} else if ("random".equals(theMode)) {
 				boolean decision = true;
 				if (Math.random() < 0.5) {
 					decision = false;

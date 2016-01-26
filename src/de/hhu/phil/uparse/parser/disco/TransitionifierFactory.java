@@ -19,11 +19,12 @@
 package de.hhu.phil.uparse.parser.disco;
 
 import de.hhu.phil.uparse.treebank.Tree;
+import de.hhu.phil.uparse.treebank.TreebankException;
 import de.hhu.phil.uparse.ui.UparseOptions;
 
 public class TransitionifierFactory {
 
-	public static Transitionifier<Tree> getTransitionsifier(String transitionifier, UparseOptions opts) {
+	public static Transitionifier<Tree> getTransitionsifier(String transitionifier, UparseOptions opts) throws TreebankException {
 
 		if ("cswap".equals(transitionifier)) {
 			return new CompoundSwapTransitionifier(opts);

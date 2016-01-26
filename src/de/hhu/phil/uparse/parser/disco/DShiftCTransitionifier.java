@@ -43,9 +43,10 @@ public class DShiftCTransitionifier extends SwapTransitionifier {
 	
 	public int len;
 	
-	public DShiftCTransitionifier(UparseOptions opts) {
+	public DShiftCTransitionifier(UparseOptions opts) throws TreebankException {
 		super(opts);
-		tc = new TreeContinuifier(opts.continuifierMode, opts.dumpTraining, opts.distanceThreshold);
+		tc = new TreeContinuifier(opts.continuifierMode, opts.continuifierLabelDirections,
+				opts.dumpTraining, opts.continuifierDistanceThreshold);
 	}
 
 	public void process(Tree tree) throws TreebankException {
