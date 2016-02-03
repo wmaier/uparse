@@ -70,6 +70,7 @@ public class DiscoParser {
 	}
 
 	public void train() throws ParserException {
+		System.err.println("perceptron updates: " + opts.updateMode);
 		Trainer<DiscoTransition> trainer = TrainerFactory.getTrainer(opts);
 		// read train and dev treebanks
 		Treebank<Tree> trainTreebank = null;
