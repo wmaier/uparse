@@ -34,13 +34,19 @@ public class Updates<T> {
 	private ObjectList<Update> updates;
 	
 	public Updates() {
-		this.updates = new ObjectArrayList<Update>(50);
+		this.updates = new ObjectArrayList<Update>(30);
 	}
 	
 	public void addUpdate(List<String> goldFeatures, int goldTransition, 
 			List<String> predFeatures, int predTransition, float delta) {
 		updates.add(new Update(goldFeatures, goldTransition, 
 				predFeatures, predTransition, delta));
+	}
+
+	public void cut(int maxDistUpdatesIndex) {
+		for (int i = maxDistUpdatesIndex; i < this.updates.size(); ++i) {
+			updates.remove(i);
+		}
 	}
 
 	public void clear() {

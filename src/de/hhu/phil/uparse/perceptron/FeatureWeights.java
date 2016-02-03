@@ -58,6 +58,15 @@ public class FeatureWeights implements Serializable {
 		}
 	}
 	
+	public float scoreForTransition(int transitionIndex) {
+		for (int i = 0; i < ind.length; ++i) {
+			if (ind[i] == transitionIndex) {
+				return data[i];
+			}
+		}
+		return 0;
+	}
+	
 	public void increment(int trans, float inc, int updateCounter) {
 		used++;
 		for (int i = 0; i < ind.length; ++i) {

@@ -81,6 +81,15 @@ public class Weights<T> implements Serializable {
 		return scores;
 	}
 	
+	public float weight(Collection<String> features, int trans) {
+		float score = 0.0f;
+		for (String feature : features) {
+			if (data.containsKey(feature)) {
+				score += data.get(feature).scoreForTransition(trans);
+			}
+		}
+		return score;
+	}
 
 	public void applyUpdate(List<String> goldFeatures, int goldTransition, List<String> predFeatures,
 			int predTransition, float delta) {

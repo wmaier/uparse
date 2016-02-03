@@ -29,6 +29,10 @@ public class TrainerFactory {
 			return new EarlyUpdateTrainer(opts);
 		}
 		
+		if ("maxviolation".equals(opts.updateMode)) {
+			return new MaxVTrainer(opts);
+		}
+		
 		throw new ParserException("unknown update mode " + opts.updateMode);
 		
 	}
