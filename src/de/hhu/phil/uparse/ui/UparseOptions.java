@@ -166,7 +166,7 @@ public class UparseOptions extends Options implements Serializable {
 	@Option(name = "-trainBeamSize", help = "override -beamSize during training (4*)")
 	public int trainBeamSize = 4;
 	
-	//@Option(name = "-updateMode", help = "perceptron update mode (early*, maxviolation, latest)")
+	@Option(name = "-updateMode", help = "perceptron update mode (early*, maxviolation)")
 	public String updateMode = "early";
 	
 	@Option(name = "-stallStop", help = "stop training if no improvement on dev after this many iterations, 0 means no stopping (0*)")
