@@ -22,20 +22,22 @@ public class TreeContinuifier implements TreeProcessor<Tree> {
 	public TreeContinuifier(String mode, ArrayList<String> labelDirections, boolean dumpTree, int threshold) throws TreebankException {
 		this.mode = mode;
 		labels = new HashMap<>();
-		for (String labelDirection : labelDirections) {
-			// is there a colon?
-			int ind = labelDirection.indexOf(":");
-			if (ind == -1) {
-				throw new TreebankException("cannot understand label/direction specification: " 
-						+ labelDirection);
+		if (labelDirections != null) {
+			for (String labelDirection : labelDirections) {
+				// is there a colon?
+				int ind = labelDirection.indexOf(":");
+				if (ind == -1) {
+					throw new TreebankException("cannot understand label/direction specification: " 
+							+ labelDirection);
+				}
+				String label = labelDirection.substring(0, ind);
+				String sdirection = labelDirection.substring(ind + 1);
+				if (!("left".equals(sdirection) || "right".equals(sdirection) || "rightd".equals(sdirection)
+						|| "random".equals(sdirection) || "dist".equals(sdirection))) {
+					throw new TreebankException("illegal direction spec: " + labelDirection);
+				}
+				labels.put(label, sdirection);
 			}
-			String label = labelDirection.substring(0, ind);
-			String sdirection = labelDirection.substring(ind + 1);
-			if (!("left".equals(sdirection) || "right".equals(sdirection) || "rightd".equals(sdirection)
-					|| "random".equals(sdirection) || "dist".equals(sdirection))) {
-				throw new TreebankException("illegal direction spec: " + labelDirection);
-			}
-			labels.put(label, sdirection);
 		}
 		this.dumpTree = dumpTree;
 		this.threshold = threshold;
