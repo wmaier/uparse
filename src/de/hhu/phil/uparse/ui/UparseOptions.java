@@ -138,7 +138,7 @@ public class UparseOptions extends Options implements Serializable {
 	public int continuifierDistanceThreshold = 0;
 	
 	@Option(name = "-continuifierLabelDirections", help = "colon-separated label/direction pairs for continuifier 'labels' mode")
-	public ArrayList<String> continuifierLabelDirections;
+	public ArrayList<String> continuifierLabelDirections = new ArrayList<String>();
 	
 	@Option(name = "-noIdle", help = "no IDLE padding transition (default false) (Zhu et al. 2013)")
 	public boolean noidle = false;
