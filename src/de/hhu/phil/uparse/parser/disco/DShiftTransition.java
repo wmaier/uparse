@@ -27,7 +27,7 @@ import de.hhu.phil.uparse.treebank.NodeLabel;
 import de.hhu.phil.uparse.treebank.Tree;
 import de.hhu.phil.uparse.treebank.bin.HeadSide;
 
-public class DShiftTransition extends DiscoTransition implements Serializable {
+public class DShiftTransition extends DiscoTransition implements Serializable, GapTransition {
 	
 	private int dist;
 	

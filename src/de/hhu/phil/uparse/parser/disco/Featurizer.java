@@ -280,14 +280,6 @@ public class Featurizer {
 						+ "_" + pt.getLabel().label);
 			}
 		}
-		if (opts.features.contains("dshift")) {
-			for (String template : Features.dshift) {
-				String feature = featureFromUni(template, state, topOfStack, topOfQueue, "");
-				if (feature != null) {
-					result.add(template + "-" + feature);
-				}
-			}
-		}
 		if (opts.features.contains("extended")) {
 			for (String template : Features.extended) {
 				String feature = featureFromUni(template, state, topOfStack,

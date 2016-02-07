@@ -24,7 +24,7 @@ import java.util.LinkedList;
 import de.hhu.phil.uparse.treebank.Grammar;
 import de.hhu.phil.uparse.treebank.Tree;
 
-public class CompoundSwapTransition extends DiscoTransition implements Serializable {
+public class CompoundSwapTransition extends DiscoTransition implements Serializable, GapTransition {
 	
 	private int size = 0;
 

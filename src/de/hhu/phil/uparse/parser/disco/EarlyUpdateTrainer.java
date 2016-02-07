@@ -67,7 +67,7 @@ public class EarlyUpdateTrainer extends Trainer<DiscoTransition> {
 			}
 			if (!goldToState.transitions.equals(bestToState.transitions)) {
 				float updateDelta = 1.0f;
-				if (goldTransition instanceof CompoundSwapTransition) {
+				if (goldTransition instanceof GapTransition) {
 					updateDelta *= opts.swapImportance;
 				}
 				List<String> goldFeatures = Featurizer.getFeatures(goldFromState, opts);

@@ -80,7 +80,7 @@ public class MaxVTrainer extends Trainer<DiscoTransition> {
 					maxDistUpdatesIndex = updates.size() + 1;
 				}
 				float updateDelta = 1.0f;
-				if (goldTransition instanceof CompoundSwapTransition) {
+				if (goldTransition instanceof GapTransition) {
 					updateDelta *= opts.swapImportance;
 				}
 				int goldTransitionIndex = weights.index.getNumber(goldTransition);

@@ -32,7 +32,7 @@ import de.hhu.phil.uparse.ui.UparseOptions;
 
 /**
  * 
- * Distshift such that everything is pulled to the right
+ * generate dshift transitions on the basis of a previously given reordering
  * 
  * @author wmaier
  *
