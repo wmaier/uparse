@@ -6,8 +6,6 @@
     uparse build file
   </description>
 
-  <property name="javac" value="/usr/bin/javac"/>
-
   <property name="ivy.version" value="2.4.0" />
   <property name="ivy.home" value="${user.home}/.ant" />
   <property name="ivy.jar.dir" value="${ivy.home}/lib" />
@@ -162,8 +160,7 @@
   <target name="compile" depends="init" description="compile parser">
     <javac srcdir="${uparse.src}" destdir="${uparse.build}" 
 	   includeantruntime="false" debug="true" 
-	   debuglevel="lines,vars,source" executable="${javac}"
-	   target="1.8" fork="true" classpathref="libpath">
+	   debuglevel="lines,vars,source" fork="true" classpathref="libpath">
       <compilerarg value="-Xlint"/>
       <compilerarg line="-encoding UTF-8"/>
     </javac>
