@@ -60,7 +60,7 @@ public class TreeContinuifier implements TreeProcessor<Tree> {
 			Tree right = children.get(1);
 			String theMode = mode;
 			if ("label".equals(theMode)) {
-				theMode = "left";
+				theMode = "rightd";
 				String label = tree.getLabel().label;
 				if (labels.containsKey(tree.getLabel().label)) {
 					theMode = labels.get(label);
