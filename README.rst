@@ -6,10 +6,9 @@
    :align: right
    :alt: HHU Logo
 
-``uparse`` is a shift-reduce parser for discontinuous structures. It has been developed at the project *Grammar Formalisms beyond Context-Free Grammars and their use for Machine Learning Tasks* at the Department for Computational Linguistics at the Institute for Language and Information at the University of Düsseldorf, Germany (see http://phil.hhu.de/beyond-cfg). The project is sponsored by Deutsche Forschungsgemeinschaft (DFG).
+``uparse`` is a shift-reduce parser for discontinuous structures. It has been developed at the project *Grammar Formalisms beyond Context-Free Grammars and their use for Machine Learning Tasks* at the Department for Computational Linguistics at the Institute for Language and Information at the University of Düsseldorf, Germany (see http://phil.hhu.de/beyond-cfg). The project is sponsored by Deutsche Forschungsgemeinschaft (DFG). The parser code was written by Wolfgang Maier; additional contributions by Daniel Hershcovich (Hebrew University of Jerusalem).
 
-If you have questions or comments, please contact Wolfgang Maier
-(maierw@hhu.de).
+If you have questions or comments, please contact Wolfgang Maier (maierw@hhu.de).
 
 .. contents::
 
@@ -17,7 +16,7 @@ If you have questions or comments, please contact Wolfgang Maier
 Quick Start
 ===========
 
-To build the parser, you need at least Java 8 and Apache ant 1.8 or higher. An ant build file is included, the default target of which builds a jar file in the project root. All necessary dependencies are pulled automatically. To run the parser, first generate a parameter file using ``java -jar uparse.jar -generate``. The generated file ``parameters`` contains all available options, set to their default values. Each option is documented. The parser is run by passing it the path to the parameter file, i.e., using ``java -jar uparse.jar parameters``.
+To build the parser, you need at least Java 8 and Apache ant 1.8 or higher. An ant build file is included, the default target of which builds a jar file in the project root. All necessary dependencies are pulled automatically from the internet, i.e., you need to be online for the first build. To run the parser, first generate a parameter file using ``java -jar uparse.jar -generate``. The generated file ``parameters`` contains all available options, set to their default values. Each option is documented. The parser is run by passing it the path to the parameter file, i.e., using ``java -jar uparse.jar parameters``.
 
 
 Reference
