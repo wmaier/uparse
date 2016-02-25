@@ -350,7 +350,7 @@ public class DiscoParser {
 				}
 			} else {
 				DiscoParser.postprocess(result);
-				result.setId(treeIndex + 1);
+				result.setId(goldTree.getId());
 				try {
 					ew.writeTree(result, fw);
 				} catch (IOException e) {
