@@ -28,7 +28,7 @@
   <target name="download-ivy">
     <mkdir dir="${ivy.jar.dir}"/>
     <get src="https://repo1.maven.org/maven2/org/apache/ivy/ivy/${ivy.version}/ivy-${ivy.version}.jar"
-	 dest="${ivy.jar.dir}/ivy.jar" usetimestamp="true"/>
+	 dest="${ivy.jar.dir}/ivy.jar" usetimestamp="true" skipexisting="true"/>
   </target>
   
   <target name="init-ivy" depends="download-ivy">
