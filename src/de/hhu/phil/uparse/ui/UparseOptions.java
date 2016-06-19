@@ -30,6 +30,10 @@ public class UparseOptions extends Options implements Serializable {
     	return presets;
 	}
 
+    /*
+     * presets can be declared here to predeclare treebank specific 
+     * stuff (for example).
+     */
 	private static final Map<String, Map<String, Enum<?>>> presets;
 	static
     {

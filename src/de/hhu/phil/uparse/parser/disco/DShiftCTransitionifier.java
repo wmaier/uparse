@@ -32,7 +32,9 @@ import de.hhu.phil.uparse.ui.UparseOptions;
 
 /**
  * 
- * generate dshift transitions on the basis of a previously given reordering
+ * Generate dshift transitions on the basis of a previously given reordering.
+ * 
+ * See Maier and Lichte (2016) (there "dshift" is called SkipShift).
  * 
  * @author wmaier
  *
@@ -96,6 +98,11 @@ public class DShiftCTransitionifier extends SwapTransitionifier {
 				}
 			}
 			if (terms.size() > 0) {
+				// The number of terminals to be skipped by the dshift
+				// transition is the number of terminals with an index 
+				// lower than the index of the first terminal in the queue
+				// which have not yet been shifted. This is number is computed
+				// here.
 				int tid = terms.get(0).nodeNumber();
 				int leftCount = 0;
 				for (Tree pt : terms) {

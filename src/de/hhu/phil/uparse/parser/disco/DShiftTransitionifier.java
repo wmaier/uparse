@@ -26,6 +26,14 @@ import de.hhu.phil.uparse.treebank.Tree;
 import de.hhu.phil.uparse.treebank.bin.HeadSide;
 import de.hhu.phil.uparse.ui.UparseOptions;
 
+/**
+ * This transition sequence extractor does the same thing as the old one from
+ * Maier (2015), except it uses SkipShift instead of Swap, so it is equal to using
+ * the LEFT reordering from Maier & Lichte (2016) with the DshiftCTransitionifier.
+ * 
+ * @author wmaier
+ *
+ */
 public class DShiftTransitionifier extends SwapTransitionifier {
 
 	public DShiftTransitionifier(UparseOptions opts) {
