@@ -22,13 +22,18 @@ To build the parser, you need at least Java 8 and Apache ant 1.8 or higher. An a
 Reference
 =========
 
-In order to reference this parser, please cite
+The parser is described in the following two papers.
 
   Wolfgang Maier (2015):  *Discontinuous incremental shift-reduce                                                                    
   parsing.* In: Proceedings of the 53rd Annual Meeting of the
   Association for Computational Linguistics and the 7th International
   Joint Conference on Natural Language Processing (Volume 1: Long
   Papers), pp. 1202-1212. Beijing, China.
+
+  Wolfgang Maier and Timm Lichte (2016):  *Discontinuous parsing
+  with continuous trees.* In: Proceedings of the Workshop on
+  Discontinuous Structures in Natural Language Processing, pp. 47--57.
+  San Diego, California.
 
 
 License
