@@ -18,7 +18,7 @@
  */
 package de.hhu.phil.uparse.parser.disco;
 
-/*
+/**
  * empty interface, used to mark transitions which introduce gaps so they
  * can be all identified during training.
  */

@@ -29,7 +29,8 @@ import de.hhu.phil.uparse.treebank.TreebankException;
 import de.hhu.phil.uparse.ui.UparseOptions;
 
 /**
- * The actual feature extraction.
+ * The actual feature extraction. There is potential for improvement here,
+ * in terms of efficiency.
  * @author wmaier
  *
  */

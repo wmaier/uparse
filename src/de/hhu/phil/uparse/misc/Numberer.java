@@ -27,7 +27,7 @@ import java.io.Serializable;
 import java.util.Set;
 
 /**
- * maps T stuff to numbers 
+ * Maps T to numbers. This implementation uses fastutils.  
  * @author wmaier
  *
  * @param <T>

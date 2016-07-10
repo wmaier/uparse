@@ -24,6 +24,11 @@ import java.util.LinkedList;
 import de.hhu.phil.uparse.treebank.Constants;
 import de.hhu.phil.uparse.treebank.Grammar;
 
+/**
+ * Finish transition as in Zhang & Clark.
+ * @author wmaier
+ *
+ */
 public class FinishTransition extends DiscoTransition implements Serializable {
 	
 	@Override

@@ -23,7 +23,12 @@ import java.util.LinkedList;
 
 import de.hhu.phil.uparse.treebank.Grammar;
 
-
+/**
+ * Idle transition as in Zhu et al. (2013), to compensate for analyses of 
+ * different length.
+ * @author wmaier
+ *
+ */
 public class IdleTransition extends DiscoTransition implements Serializable {
 	
 	@Override

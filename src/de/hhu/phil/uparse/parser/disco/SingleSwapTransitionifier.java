@@ -27,6 +27,13 @@ import de.hhu.phil.uparse.treebank.Tree;
 import de.hhu.phil.uparse.treebank.bin.HeadSide;
 import de.hhu.phil.uparse.ui.UparseOptions;
 
+
+/**
+ * See Maier (2015). 
+ * 
+ * @author wmaier
+ *
+ */
 public class SingleSwapTransitionifier extends SwapTransitionifier {
 
 	public SingleSwapTransitionifier(UparseOptions opts) {

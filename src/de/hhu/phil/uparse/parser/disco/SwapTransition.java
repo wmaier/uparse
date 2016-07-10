@@ -24,6 +24,12 @@ import java.util.LinkedList;
 import de.hhu.phil.uparse.treebank.Grammar;
 import de.hhu.phil.uparse.treebank.Tree;
 
+/**
+ * See Maier (2015). This is a single swap.
+ * 
+ * @author wmaier
+ *
+ */
 public class SwapTransition extends DiscoTransition implements Serializable {
 	
 	public State extend(State state, double scoreDelta) {

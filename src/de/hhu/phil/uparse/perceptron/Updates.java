@@ -25,7 +25,8 @@ import it.unimi.dsi.fastutil.objects.ObjectList;
 
 /**
  * A single update for the weight vector containing two transitions
- * (correct and incorrect) and their respective features
+ * (correct and incorrect) and their respective features.
+ * 
  * @author wmaier
  *
  */

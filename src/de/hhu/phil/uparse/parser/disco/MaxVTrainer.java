@@ -26,6 +26,11 @@ import de.hhu.phil.uparse.perceptron.Updates;
 import de.hhu.phil.uparse.perceptron.Weights;
 import de.hhu.phil.uparse.ui.UparseOptions;
 
+/**
+ * Max violation trainer for perceptron, Huang et al. (2012) (NAACL)
+ * @author wmaier
+ *
+ */
 public class MaxVTrainer extends Trainer<DiscoTransition> {
 
 	public MaxVTrainer(UparseOptions opts) {
@@ -88,7 +93,6 @@ public class MaxVTrainer extends Trainer<DiscoTransition> {
 				int parserTransitionIndex = weights.index.getNumber(bestToState.transitions.peek());
 				updates.addUpdate(goldFeatures, goldTransitionIndex, 
 						parserFeatures, parserTransitionIndex, updateDelta);
-				//updates.add(new Update(goldFeatures, goldTransitionIndex, parserFeatures, parserTransitionIndex, updateDelta));
 				boolean goldStateOnAgenda = false;
 				for (State candidate : candidates) {
 					if (candidate.transitions.equals(goldToState.transitions)) {
@@ -103,6 +107,7 @@ public class MaxVTrainer extends Trainer<DiscoTransition> {
 			goldFromState = goldToState;
 			agenda = candidates;
 		}
+		// remove the tail beyond the max violation
 		updates.cut(maxDistUpdatesIndex);
 		return goldTransitions.size() == 0;
 	}

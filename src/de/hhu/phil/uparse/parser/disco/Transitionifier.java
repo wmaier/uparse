@@ -29,7 +29,8 @@ import de.hhu.phil.uparse.treebank.TreebankProcessor;
 import de.hhu.phil.uparse.ui.UparseOptions;
 
 /**
- * abstract class for extraction of transition sequences
+ * Abstract class for extraction of transition sequences.
+ * 
  * @author wmaier
  *
  */

@@ -28,7 +28,10 @@ import de.hhu.phil.uparse.treebank.TreebankException;
 import de.hhu.phil.uparse.ui.UparseOptions;
 
 /**
- * Bottom up transition sequence extraction 
+ * Bottom up transition sequence extraction. This is just a superclass
+ * with general utilities, the concrete strategy (e.g., with reordering or not)
+ * is specified in subclasses.
+ * 
  * @author wmaier
  *
  */

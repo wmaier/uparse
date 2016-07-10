@@ -26,23 +26,27 @@ public class TransitionifierFactory {
 
 	public static Transitionifier<Tree> getTransitionsifier(String transitionifier, UparseOptions opts) throws TreebankException {
 
+		// Compound Swap from Maier (2015)
 		if ("cswap".equals(transitionifier)) {
 			return new CompoundSwapTransitionifier(opts);
 		}
 		
+		// Single Swap from Maier (2015)
 		if ("sswap".equals(transitionifier)) {
 			return new SingleSwapTransitionifier(opts);
 		}
 		
+		// As compound swap, but using skipshift from Maier & Lichte (2016) instead of swap
 		if ("dshift".equals(transitionifier)) {
 			return new DShiftTransitionifier(opts);
 		}
 		
+		// Continuifier-based, as in Maier & Lichte (2016)
 		if ("dshiftc".equals(transitionifier)) {
 			return new DShiftCTransitionifier(opts);
 		}
 		
-		// only for continuous trees
+		// Top down extraction for continuous parsing
 		if ("topdown".equals(transitionifier)) {
 			return new TopDownTransitionifier(opts);
 		}

@@ -26,6 +26,11 @@ import de.hhu.phil.uparse.perceptron.Updates;
 import de.hhu.phil.uparse.perceptron.Weights;
 import de.hhu.phil.uparse.ui.UparseOptions;
 
+/**
+ * As in Collins & Roark (2004).
+ * @author wmaier
+ *
+ */
 public class EarlyUpdateTrainer extends Trainer<DiscoTransition> {
 
 	public EarlyUpdateTrainer(UparseOptions opts) {

@@ -27,6 +27,11 @@ import de.hhu.phil.uparse.treebank.NodeLabel;
 import de.hhu.phil.uparse.treebank.Tree;
 import de.hhu.phil.uparse.treebank.bin.HeadSide;
 
+/**
+ * SkipShift from Maier & Lichte (2016).
+ * @author wmaier
+ *
+ */
 public class DShiftTransition extends DiscoTransition implements Serializable, GapTransition {
 	
 	private int dist;

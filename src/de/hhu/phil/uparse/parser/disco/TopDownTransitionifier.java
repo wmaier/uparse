@@ -27,7 +27,12 @@ import de.hhu.phil.uparse.treebank.TreebankException;
 import de.hhu.phil.uparse.treebank.bin.HeadSide;
 import de.hhu.phil.uparse.ui.UparseOptions;
 
-
+/**
+ * Extracts transition sequences top-down and then reverses the sequence.
+ * Works only for continuous trees.
+ * @author wmaier
+ *
+ */
 public class TopDownTransitionifier extends Transitionifier<Tree> {
 
 	public TopDownTransitionifier(UparseOptions opts) {
