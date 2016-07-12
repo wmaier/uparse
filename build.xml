@@ -19,7 +19,7 @@
   <property name="uparse.version.num" value="0.1"/>
   <property name="uparse.main-class" value="de.hhu.phil.uparse.ui.Uparse"/>
 
-  <property name="autojar.version" value="2.0.1" />
+  <property name="autojar.version" value="2.1" />
   <property name="autojar.tasks" value="${uparse.lib}/autojar-tasks.txt" />
 
 
@@ -55,7 +55,7 @@
 
   <target name="download-autojar" depends="check-autojar-exists" unless="autojar.exists">
     <get dest="${ivy.jar.dir}/autojar-${autojar.version}.zip"
-	 src="http://iweb.dl.sourceforge.net/project/autojar/autojar/2.0.1/autojar-${autojar.version}.zip"
+      src="http://downloads.sourceforge.net/project/autojar/autojar/${autojar.version}/autojar-${autojar.version}.zip"
 	 usetimestamp="true"/>
     <unzip src="${ivy.jar.dir}/autojar-${autojar.version}.zip"
 	   dest="${ivy.jar.dir}">
