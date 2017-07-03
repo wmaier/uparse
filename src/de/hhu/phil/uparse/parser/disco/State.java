@@ -40,13 +40,15 @@ public class State implements Comparable<State> {
 	
 	public LinkedList<Tree> stack;
 	
+	public int splitPoint; // for Coavoux GAP parser. A deque and a stack would be better.
+	
 	public LinkedList<DiscoTransition> transitions;
 	
 	public List<Tree> sentence;
 	
 	public boolean complete;
 	
-	// This is the "queue". Normally this is just an integer pointingg 
+	// This is the "queue". Normally this is just an integer pointing 
 	// to a position in the sentence. However, since we do discontinuous 
 	// parsing, a single pointer is not enough, we need a "to-do" list 
 	// of indices, where we successively remove the indices corresponding

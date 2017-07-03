@@ -51,6 +51,11 @@ public class TransitionifierFactory {
 			return new TopDownTransitionifier(opts);
 		}
 		
+		// Gap transition from Coavoux & Crabbe (2017)
+		if ("gap".equals(transitionifier)) {
+			return new CoavouxGapTransitionifier(opts);
+		}
+		
 		throw new IllegalArgumentException("Unknown transitionifier " + transitionifier);
 		
 	}
