@@ -401,7 +401,7 @@ public class DiscoParser {
 		LinkedList<Tree> input = new LinkedList<>(tree.preTerminals());
 		List<Integer> todo = IntStream.range(0, input.size()).boxed().collect(Collectors.toList());
 		return new State(new LinkedList<>(), new LinkedList<>(), 
-				Collections.unmodifiableList(input), todo, 0, false, 0);
+				Collections.unmodifiableList(input), todo, 0, false, 0, 1);
 	}
 
 	protected static String getSentence(State state) {

@@ -46,7 +46,7 @@ public class UnaryTransition extends DiscoTransition implements Serializable {
 	    LinkedList<DiscoTransition> trans = new LinkedList<>(state.transitions);
 	    trans.push(this);
 	    return new State(stack, trans, state.sentence, new LinkedList<>(state.todo), 
-	    		state.score + scoreDelta, false, state.lastShiftDist);    
+	    		state.score + scoreDelta, false, state.lastShiftDist, state.splitPoint);    
 	}
 	
 	public boolean isLegal(State state, Grammar g) {

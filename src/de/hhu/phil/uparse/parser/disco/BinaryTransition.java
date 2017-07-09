@@ -47,8 +47,10 @@ public class BinaryTransition extends DiscoTransition implements Serializable  {
 	@Override
 	public State extend(State state, double scoreDelta) {
 		LinkedList<Tree> stack = new LinkedList<>(state.stack);
-	    Tree right = stack.pop();
-	    Tree left = stack.pop();
+	    Tree right = stack.get(0);
+	    Tree left = stack.get(state.splitPoint);
+	    stack.remove(state.splitPoint);
+	    stack.pop();
 
 	    Tree binaryNode = new Tree(new NodeLabel(label));
 	    binaryNode.addChild(left);
@@ -69,7 +71,7 @@ public class BinaryTransition extends DiscoTransition implements Serializable  {
 	    trans.push(this);
 	    
 	    return new State(stack, trans, state.sentence, new LinkedList<>(state.todo), 
-	    		state.score + scoreDelta, false, state.lastShiftDist);    
+	    		state.score + scoreDelta, false, state.lastShiftDist, 1);    
 	}
 	
 	public boolean isLegal(State state, Grammar g) {
@@ -84,11 +86,13 @@ public class BinaryTransition extends DiscoTransition implements Serializable  {
 		if (state.complete) {
 			return false;
 		}
-		if (state.stack.size() < 2) {
+		//if (state.stack.size() < 2) {
+		if (state.stack.size() <= state.splitPoint) {
 			return false;
 		} else {
 			Tree r = state.stack.get(0);
-			Tree l = state.stack.get(1);
+			//Tree l = state.stack.get(1);
+			Tree l = state.stack.get(state.splitPoint);
 			String fullLabel = label.startsWith("@") ? label.substring(1) : label;
 			if (r.getLabel().label.startsWith("@")
 					&& l.getLabel().label.startsWith("@")) {

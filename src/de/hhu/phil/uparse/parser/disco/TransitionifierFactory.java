@@ -25,6 +25,8 @@ import de.hhu.phil.uparse.ui.UparseOptions;
 public class TransitionifierFactory {
 
 	public static Transitionifier<Tree> getTransitionsifier(String transitionifier, UparseOptions opts) throws TreebankException {
+		
+		System.err.println("requesting transitionifier " + transitionifier);
 
 		// Compound Swap from Maier (2015)
 		if ("cswap".equals(transitionifier)) {

@@ -60,7 +60,7 @@ public class State implements Comparable<State> {
 
 	public State(LinkedList<Tree> stack, LinkedList<DiscoTransition> trans,
 			List<Tree> list, List<Integer> todo, double score, boolean complete,
-			int lastdshift) {
+			int lastdshift, int splitPoint) {
 		this.stack = stack;
 		this.transitions = trans;
 		this.sentence = list;
@@ -68,12 +68,8 @@ public class State implements Comparable<State> {
 		this.score = score;
 		this.complete = complete;
 		this.lastShiftDist = lastdshift;
+		this.splitPoint = splitPoint;
 	}
-
-	/*public State(LinkedList<Tree> stack, LinkedList<DiscoTransition> trans,
-			List<Tree> list, List<Integer> todo, double score, boolean complete) {
-		this(stack, trans, list, todo, score, complete, 0);
-	}*/
 
 	public String toString() {
 		return "[" + stack.toString() + ", " + transitions.toString() + ", " + todo + ", " + complete + "]";

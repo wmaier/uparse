@@ -40,7 +40,7 @@ public class SwapTransition extends DiscoTransition implements Serializable {
 		LinkedList<Integer> todo = new LinkedList<>(state.todo);
 		todo.addFirst(swapped.nodeNumber() - 1);
 		return new State(stack, trans, state.sentence, todo, state.score + scoreDelta, false,
-				state.lastShiftDist);
+				state.lastShiftDist, state.splitPoint);
 	}
 
 	public boolean isLegal(State state, Grammar g) {
