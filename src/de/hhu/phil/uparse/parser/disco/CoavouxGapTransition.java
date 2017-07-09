@@ -26,6 +26,7 @@ import de.hhu.phil.uparse.treebank.Tree;
 
 /**
  * Gap transition from Coavoux & Crabbe (2017)
+ * 
  * @author wmaier
  *
  */
@@ -37,8 +38,8 @@ public class CoavouxGapTransition extends DiscoTransition {
 		LinkedList<DiscoTransition> trans = new LinkedList<>(state.transitions);
 		trans.push(this);
 		List<Integer> newtodo = new LinkedList<>(state.todo);
-		return new State(stack, trans, state.sentence, newtodo, state.score + scoreDelta, false, 
-				state.lastShiftDist, state.splitPoint + 1);
+		return new State(stack, trans, state.sentence, newtodo, state.score + scoreDelta, false, state.lastShiftDist,
+				state.splitPoint + 1);
 	}
 
 	@Override
@@ -55,13 +56,14 @@ public class CoavouxGapTransition extends DiscoTransition {
 						break;
 					}
 				}
-				if (!hasTempLeft) return false;
-					
+				if (!hasTempLeft)
+					return false;
+
 			}
 		}
 		return true;
 	}
-	
+
 	@Override
 	public int hashCode() {
 		return 139101213;
@@ -81,7 +83,7 @@ public class CoavouxGapTransition extends DiscoTransition {
 	public String toString() {
 		return "CGAP";
 	}
-	
+
 	private static final long serialVersionUID = -876742053765366008L;
 
 }
