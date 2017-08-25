@@ -16,7 +16,7 @@ If you have questions or comments, please contact Wolfgang Maier (maierw@hhu.de)
 Quick Start
 ===========
 
-To build the parser, you need at least Java 8 and Apache ant 1.8 or higher. An ant build file is included, the default target of which builds a jar file in the project root. All necessary dependencies are pulled automatically from the internet, i.e., you need to be online for the first build. To run the parser, first generate a parameter file using ``java -jar uparse.jar -generate``. The generated file ``parameters`` contains all available options, set to their default values. Each option is documented. The parser is run by passing it the path to the parameter file, i.e., using ``java -jar uparse.jar parameters``.
+To build the parser, you need at least Java 8 and :strike:`Apache ant 1.8` Maven 3.3.9 or higher. To build the parser, use ``mvn clean install``. To run the parser, first generate a parameter file using ``java -jar uparse.jar -generate``. The generated file ``parameters`` contains all available options, set to their default values. Each option is documented. The parser is run by passing it the path to the parameter file, i.e., using ``java -jar uparse.jar parameters``.
 
 
 Reference
@@ -39,4 +39,4 @@ The parser is described in the following two papers.
 License
 =======
 
-The parser code is released under the GNU General Public Licence (GPL) 3.0 or higher. In the build process, *autojar* is used (see http://autojar.sourceforge.net ) (GPL 2). The parser uses the library *fastutil* (http://fastutil.di.unimi.it/ ) (Apache License 2.0) and contains code from *rparse* (https://github.com/wmaier/rparse) (GPL 2). For the full licenses see http://www.gnu.org/licenses/gpl-2.0 , http://www.gnu.org/licenses/gpl-3.0 , and http://www.apache.org/licenses/LICENSE-2.0.html.
+The parser code is released under the GNU General Public Licence (GPL) 3.0 or higher. The parser uses the library *fastutil* (http://fastutil.di.unimi.it/ ) (Apache License 2.0) and contains code from *rparse* (https://github.com/wmaier/rparse) (GPL 2). For the full licenses see http://www.gnu.org/licenses/gpl-2.0 , http://www.gnu.org/licenses/gpl-3.0 , and http://www.apache.org/licenses/LICENSE-2.0.html.
