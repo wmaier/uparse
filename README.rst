@@ -16,7 +16,7 @@ If you have questions or comments, please contact Wolfgang Maier (maierw@hhu.de)
 Quick Start
 ===========
 
-To build the parser, you need at least Java 8 and :strike:`Apache ant 1.8` Maven 3.3.9 or higher. To build the parser, use ``mvn clean install``. To run the parser, first generate a parameter file using ``java -jar uparse.jar -generate``. The generated file ``parameters`` contains all available options, set to their default values. Each option is documented. The parser is run by passing it the path to the parameter file, i.e., using ``java -jar uparse.jar parameters``.
+To build the parser, you need at least Java 8 and Maven 3.3.9 or higher. To build the parser, use ``mvn clean install``, which builds a jar ``target/uparse.jar`` in the project root. To run the parser, first generate a parameter file using ``java -jar uparse.jar -generate``. The generated file ``parameters`` contains all available options, set to their default values. Each option is documented. The parser is run by passing it the path to the parameter file, i.e., using ``java -jar uparse.jar parameters``.
 
 
 Reference
